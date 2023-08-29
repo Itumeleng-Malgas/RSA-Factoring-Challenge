@@ -22,22 +22,21 @@ if __name__ == "__main__":
 
     try:
         with open(input_file, 'r') as f:
-            lines = f.readlines()
+            line = f.readline().strip()
     except FileNotFoundError:
         print("File not found")
         exit()
 
     start_time = time.time()
+    num = int(line.strip())
+    
+    factors = clibrary.factorize(num)
+    if factors:
+        print("{}={}*{}".format(num, factors[0], factors[1]))
+        clibrary.free(factors)
+    else:
+        clibrary.free(factors)
 
-    for line in lines:
-        num = int(line.strip())
-        factors = clibrary.factorize(num)
-        if factors:
-            print("{}={}*{}".format(num, factors[0], factors[1]))
-            clibrary.free(factors)
-        else:
-            clibrary.free(factors)
-
-        if time.time() - start_time > 5:
-            print("Time limit exceeded")
-            exit()    
+    if time.time() - start_time > 5:
+        print("Time limit exceeded")
+        exit()    
