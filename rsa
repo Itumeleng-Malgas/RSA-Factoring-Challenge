@@ -33,10 +33,12 @@ if __name__ == "__main__":
         num = int(line.strip())
         factors = clibrary.factorize(num)
         if factors:
-            print(f"{num}={factors[0]}*{factors[1]}")
+            print("{}={}*{}".format(num, format[0], factors[1]))
+            clibrary.free(factors)
 
         if time.time() - start_time > 5:
             print("Time limit exceeded")
-            clibrary.free(factors)
             exit()
+
     clibrary.free(factors)
+    
