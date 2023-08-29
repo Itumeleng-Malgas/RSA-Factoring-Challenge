@@ -37,4 +37,6 @@ if __name__ == "__main__":
 
         if time.time() - start_time > 5:
             print("Time limit exceeded")
+            clibrary.free(factors)
             exit()
+    clibrary.free(factors)
