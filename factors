@@ -1,12 +1,14 @@
-#!/usr/bin/python3
-
 import ctypes
 import sys
 
-clibrary = ctypes.CDLL("./libfactors.so")
-clibrary.find_factors.argtypes = [ctypes.c_ulonglong]
+# Load the shared library containing the find_factors function
+find_factors_lib = ctypes.CDLL('./find_factors_gmp.so')
 
-def factorize():
+# Define the argument type for the find_factors function
+find_factors_lib.find_factors.argtypes = [ctypes.c_char_p]
+find_factors_lib.find_factors.restype = None
+
+def find_factors():
  
     if len(sys.argv) != 2:
         print("Usage: factors <file>")
@@ -20,8 +22,8 @@ def factorize():
         exit()
 
     for line in lines:
-        N = int(line.strip(), 10)
-        clibrary.find_factors(N)
+        N = line.encode() # Convert Python string to C-style string
+        find_factors_lib.find_factors(N)
 
 if __name__ == "__main__":
-    factorize()
+    find_factors()
