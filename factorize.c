@@ -6,7 +6,7 @@
 uint64_t *factorize(uint64_t N) {
     uint64_t sqrt_N = (uint64_t)sqrt(N);
     
-    uint64_t *factors = (uint64_t *)malloc(sizeof(uint64_t));
+    uint64_t *factors = (uint64_t *)malloc(sizeof(uint64_t) * 2);
     if (!factors) {
         perror("Memory allocation error");
         return (NULL);
