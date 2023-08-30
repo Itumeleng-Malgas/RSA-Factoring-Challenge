@@ -4,10 +4,10 @@ import ctypes
 import sys
 
 clibrary = ctypes.CDLL("./libfactors.so")
-clibrary.find_factors.argtypes = [ctypes.c_long]
+clibrary.find_factors.argtypes = [ctypes.c_ulonglong]
 
 def factorize():
-
+ 
     if len(sys.argv) != 2:
         print("Usage: factors <file>")
         exit()
@@ -20,7 +20,7 @@ def factorize():
         exit()
 
     for line in lines:
-        N = int(line.strip())
+        N = int(line.strip(), 10)
         clibrary.find_factors(N)
 
 if __name__ == "__main__":

@@ -5,13 +5,13 @@
  * find_factors - finds the smallest divisor of a given number.
  * @num: operant to find factors for.
  */
-void find_factors(long int num)
+void find_factors(unsigned long long int num)
 {
-	long int factor;
+	unsigned long long int factor;
 
 	if (num % 2 == 0)
 	{
-		printf("%lu=%lu*%i\n", num, num / 2, 2);
+		printf("%llu=%llu*%i\n", num, num / 2, 2);
 		return;
 	}
 
@@ -19,12 +19,12 @@ void find_factors(long int num)
 	{
 		if (num % factor == 0)
 		{
-			printf("%lu=%lu*%lu\n", num, num / factor, factor);
+			printf("%llu=%llu*%llu\n", num, num / factor, factor);
 			return;
 		}
 		else
 			factor += 2;
 	}
 
-	printf("%lu=%lu*%i\n", num, num, 1);
+	printf("%llu=%llu*%i\n", num, num, 1);
 }
