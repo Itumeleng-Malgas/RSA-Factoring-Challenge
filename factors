@@ -1,40 +1,27 @@
 #!/usr/bin/python3
 
-import time
+import ctypes
 import sys
 
-import ctypes
-import os
+clibrary = ctypes.CDLL("./libfactors.so")
+clibrary.find_factors.argtypes = [ctypes.c_long]
 
-path = os.getcwd()
-clibrary = ctypes.CDLL(os.path.join(path, 'libfactorize.so'))
-
-clibrary.factorize.restype = ctypes.POINTER(ctypes.c_uint64)
-clibrary.factorize.argtypes = [ctypes.c_uint64]
-
-if __name__ == "__main__":
+def factorize():
 
     if len(sys.argv) != 2:
         print("Usage: factors <file>")
         exit()
 
-    input_file = sys.argv[1]
-
     try:
-        with open(input_file, 'r') as f:
+        with open(sys.argv[1], 'r') as f:
             lines = f.readlines()
     except FileNotFoundError:
         print("File not found")
         exit()
 
-    start_time = time.time()
-
     for line in lines:
-        num = int(line.strip())
-        factors = clibrary.factorize(num)
-        if factors:
-            print(f"{num}={factors[0]}*{factors[1]}")
+        N = int(line.strip())
+        clibrary.find_factors(N)
 
-        if time.time() - start_time > 5:
-            print("Time limit exceeded")
-            exit()
+if __name__ == "__main__":
+    factorize()
