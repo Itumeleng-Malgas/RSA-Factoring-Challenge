@@ -1,18 +1,4 @@
-#!/usr/bin/python3
+#!/bin/bash
 
-import ctypes
-import sys
-
-def factorize():
-    clibrary = ctypes.CDLL("./libfactorize.so")
-    clibrary.find_factors.argtypes = [ctypes.c_long]
-
-    with open(sys.argv[1]) as f:
-        line = f.readline().strip()
-        while line != '':
-            N = int(line)
-            clibrary.find_factors(N)
-            line = f.readline()
-
-if __name__ == "__main__":
-    factorize()
+export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH
+python3 rsa.py $1
